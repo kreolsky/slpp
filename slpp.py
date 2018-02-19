@@ -51,8 +51,6 @@ class SLPP(object):
         tp = type(obj)
         if isinstance(obj, str):
             s += '"%s"' % obj.replace(r'"', r'\"')
-        if isinstance(obj, unicode):
-            s += '"%s"' % obj.encode('utf-8').replace(r'"', r'\"')
         elif tp in [int, float, long, complex]:
             s += str(obj)
         elif tp is bool:
@@ -129,7 +127,7 @@ class SLPP(object):
                     if self.ch != end:
                         s += '\\'
                 s += self.ch
-        print ERRORS['unexp_end_string']
+        print(ERRORS['unexp_end_string'])
 
     def object(self):
         o = {}
@@ -155,7 +153,7 @@ class SLPP(object):
                     self.next_chr()
                     if k is not None:
                        o[idx] = k
-                    if not numeric_keys and len([ key for key in o if isinstance(key, (str, unicode, float,  bool,  tuple))]) == 0:
+                    if not numeric_keys and len([ key for key in o if isinstance(key, (str, float,  bool,  tuple))]) == 0:
                         ar = []
                         for key in o:
                            ar.insert(key, o[key])
@@ -181,7 +179,7 @@ class SLPP(object):
                             o[idx] = k
                         idx += 1
                         k = None
-        print ERRORS['unexp_end_table'] #Bad exit here
+        print(ERRORS['unexp_end_table']) #Bad exit here
 
     words = {'true': True, 'false': False, 'nil': None}
     def word(self):
