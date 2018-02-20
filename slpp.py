@@ -28,7 +28,7 @@ class SLPP(object):
         self.tab = '\t'
 
     def decode(self, text):
-        if not text or not isinstance(text, basestring):
+        if not text or not isinstance(text, str):
             return
         #FIXME: only short comments removed
         reg = re.compile('--.*$', re.M)
@@ -61,7 +61,7 @@ class SLPP(object):
             self.depth += 1
             if len(obj) == 0 or ( tp is not dict and len(filter(
                     lambda x:  type(x) in (int,  float,  long) \
-                    or (isinstance(x, basestring) and len(x) < 10),  obj
+                    or (isinstance(x, str) and len(x) < 10),  obj
                 )) == len(obj) ):
                 newline = tab = ''
             dp = tab * self.depth
@@ -74,7 +74,7 @@ class SLPP(object):
                     else:
                         contents.append(dp + '%s = %s' % (k, self.__encode(v)))
                 s += (',%s' % newline).join(contents)
-                
+
             else:
                 s += (',%s' % newline).join(
                     [dp + self.__encode(el) for el in obj])
